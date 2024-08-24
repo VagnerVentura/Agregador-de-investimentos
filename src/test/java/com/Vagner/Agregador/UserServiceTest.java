@@ -3,11 +3,14 @@ package com.Vagner.Agregador;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.DisplayName;
@@ -36,6 +39,9 @@ public class UserServiceTest {
 	
 	@Captor
 	private ArgumentCaptor<User> userArgumentCaptor;
+
+	@Captor
+	private ArgumentCaptor<UUID> uuidArgumentCaptor;
 	
 	@Nested
 	class createUser{
@@ -105,5 +111,113 @@ public class UserServiceTest {
 		}
 		
 	}
+	
+	@Nested
+	class getUserById{
+		
+		@Test
+		@DisplayName("Should get user by id with success when optional is present")
+		void ShouldGetUserByIdWhitSuccessWhenOptionalIsPresent() {
+			
+			//Arrange
+			
+			var user = new User(
+					UUID.randomUUID(),
+					"username",
+					"email@email.com",
+					"password",
+					Instant.now(),
+					 null
+				);
+			
+			doReturn(Optional.of(user)).when(userRepository).findById(uuidArgumentCaptor.capture());
+						
+			//Act
+			var output = userService.getUserById(user.getUserId().toString());
+			
+			//Assert
+			assertTrue(output.isPresent());
+			assertEquals(user.getUserId(), uuidArgumentCaptor.getValue());
+			
+		}
+		
+		@Test
+		@DisplayName("Should get user by id with success when optional is empty")
+		void ShouldGetUserByIdWhitSuccessWhenOptionalIsEmpty() {
+			
+			//Arrange
+			
+
+			var userId = UUID.randomUUID();
+			
+			doReturn(Optional.empty()).when(userRepository).findById(uuidArgumentCaptor.capture());
+			
+			//Act
+			var output = userService.getUserById(userId.toString());
+			
+			//Assert
+			assertTrue(output.isEmpty());
+			assertEquals(userId, uuidArgumentCaptor.getValue());
+			
+		}
+		
+	}
+	
+	@Nested
+	class listUsers {
+		
+		@Test
+		@DisplayName("Should return all users with success")
+		void shouldReturnAllUsersWithSuccess(){
+			
+			//Arrange
+			
+			var user = new User(
+					UUID.randomUUID(),
+					"username",
+					"email@email.com",
+					"password",
+					Instant.now(),
+					 null
+				);
+			
+			var userList = List.of(user);	
+			
+			doReturn(userList)
+			.when(userRepository)
+			.findAll();
+
+			//Act
+			
+			var output = userService.listUsers(); 
+			
+			//Assert
+			
+			assertNotNull(output);
+			assertEquals(userList.size(), output.size());
+			
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
