@@ -2,25 +2,33 @@ package com.Vagner.Agregador.entity;
 
 import java.util.UUID;
 
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+
 public class Stock {
 
-	private UUID stockId;
+	@Id
+	@Column(name = "stock_id")
+	private String stockId;
+
+	@Column(name = "description")
 	private String description;
+	
 	private String ticker;
 	
+	public Stock() {}
 	
-	
-	public Stock(UUID stockId, String description, String ticker) {
-		super();
+	public Stock(String stockId, String description, String ticker) {
 		this.stockId = stockId;
 		this.description = description;
 		this.ticker = ticker;
 	}
 	
-	protected UUID getStockId() {
+	protected String getStockId() {
 		return stockId;
 	}
-	protected void setStockId(UUID stockId) {
+	protected void setStockId(String stockId) {
 		this.stockId = stockId;
 	}
 	protected String getDescription() {

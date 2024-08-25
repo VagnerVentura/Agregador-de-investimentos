@@ -2,30 +2,47 @@ package com.Vagner.Agregador.entity;
 
 import java.util.UUID;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name= "tb_billingaddress")
 public class BillingAddress {
 
-	private UUID accountId;
+	@Id
+	@Column(name = "account_id")
+	private UUID id;
+	
+	@Column(name = "street")
 	private String street;
+	
+	@Column(name = "number")
 	private Integer number;
 	
-//	@OneToOne
+	@OneToOne
+	@MapsId
+	@JoinColumn(name = "account_id")
 	private Account account;
 	
-	public BillingAddress(UUID accountId, String street, Integer number) {
-		super();
-		this.accountId = accountId;
+	public BillingAddress() {}
+	
+	public BillingAddress(UUID id, String street, Integer number) {
+		this.id = id;
 		this.street = street;
 		this.number = number;
 	}
 
-	protected UUID getAccountId() {
-		return accountId;
+	protected UUID getid() {
+		return id;
 	}
 
-	protected void setAccountId(UUID accountId) {
-		this.accountId = accountId;
+	protected void setid(UUID id) {
+		this.id = id;
 	}
 
 	protected String getStreet() {
