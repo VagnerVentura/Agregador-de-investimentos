@@ -1,11 +1,12 @@
 package com.Vagner.Agregador.entity;
 
-import java.util.UUID;
-
-
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "tb_stocks")
 public class Stock {
 
 	@Id
