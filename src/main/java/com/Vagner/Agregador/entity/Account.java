@@ -3,6 +3,7 @@ package com.Vagner.Agregador.entity;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,20 +31,21 @@ public class Account {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToOne(mappedBy = "account")
+	@OneToOne( cascade = CascadeType.ALL,mappedBy = "account")
 	@PrimaryKeyJoinColumn
 	private BillingAddress billingAddress;
 	
 	@OneToMany(mappedBy = "account")
 	private List<AccountStock> accountStocks;
 	
-	public Account(UUID uuid, String description, User user, BillingAddress billingAddress) {
+	public Account() {}
+	
+	public Account(UUID uuid, User user ,BillingAddress billingAddress , String description) {
 		this.accountId = uuid;
-		this.description = description;
 		this.user = user;
 		this.billingAddress = billingAddress;
-	}
-
+		this.description = description;
+	}	
 
 	public UUID getAccountId() {
 		return accountId;

@@ -3,6 +3,7 @@ package com.Vagner.Agregador.entity;
 import java.util.UUID;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -24,15 +25,16 @@ public class BillingAddress {
 	@Column(name = "number")
 	private Integer number;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@MapsId
 	@JoinColumn(name = "account_id")
 	private Account account;
 	
 	public BillingAddress() {}
 	
-	public BillingAddress(UUID id, String street, Integer number) {
+	public BillingAddress(UUID id, Account account, String street, Integer number) {
 		this.id = id;
+		this.account = account;
 		this.street = street;
 		this.number = number;
 	}
