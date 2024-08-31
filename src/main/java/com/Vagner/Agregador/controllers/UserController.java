@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Vagner.Agregador.dto.AccountResponseDto;
 import com.Vagner.Agregador.dto.CreateAccountDto;
-import com.Vagner.Agregador.dto.CreateBillingAddressDto;
 import com.Vagner.Agregador.dto.CreateUserDTO;
 import com.Vagner.Agregador.dto.UpdateUserDTO;
 import com.Vagner.Agregador.entity.User;
@@ -76,6 +76,12 @@ public class UserController {
 		userService.createAccount(userId, createAccountDto);
 		return ResponseEntity.ok().build();
 		
+	}
+	
+	@GetMapping("/{userId}/accounts")
+	public ResponseEntity<List<AccountResponseDto>> listAccounts(@PathVariable("userId") String userId){
+		var accounts = userService.listAccounts(userId);
+		return ResponseEntity.ok().body(accounts);
 	}
 	
 	
