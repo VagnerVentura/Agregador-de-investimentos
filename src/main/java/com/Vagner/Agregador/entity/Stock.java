@@ -20,19 +20,19 @@ public class Stock {
 	
 	public Stock() {}
 	
-	public Stock(String stockId, String description, String ticker) {
+	public Stock(String stockId, String description) {
 		this.stockId = stockId;
 		this.description = description;
-		this.ticker = ticker;
+//		this.ticker = ticker;
 	}
 	
-	protected String getStockId() {
+	public String getStockId() {
 		return stockId;
 	}
 	protected void setStockId(String stockId) {
 		this.stockId = stockId;
 	}
-	protected String getDescription() {
+	public String getDescription() {
 		return description;
 	}
 	protected void setDescription(String description) {

@@ -1,11 +1,9 @@
 package com.Vagner.Agregador.repositories;
 
-import java.util.UUID;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.Vagner.Agregador.entity.User;
+import com.Vagner.Agregador.entity.Stock;
 
-public interface StockRepository extends JpaRepository<User, UUID>{
+public interface StockRepository extends JpaRepository<Stock, String>{
 
 }

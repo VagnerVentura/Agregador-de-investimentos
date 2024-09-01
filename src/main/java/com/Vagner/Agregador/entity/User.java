@@ -38,7 +38,7 @@ public class User {
 	@UpdateTimestamp
     private Instant updateTimestamp;	
 	
-	@OneToMany // um usuário para muitas contas
+	@OneToMany(mappedBy="user")
 	private List<Account> accounts;
 	
 	public User() {}	

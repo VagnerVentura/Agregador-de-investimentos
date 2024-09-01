@@ -81,7 +81,7 @@ public class UserController {
 	@GetMapping("/{userId}/accounts")
 	public ResponseEntity<List<AccountResponseDto>> listAccounts(@PathVariable("userId") String userId){
 		var accounts = userService.listAccounts(userId);
-		return ResponseEntity.ok().body(accounts);
+		return ResponseEntity.ok(accounts);
 	}
 	
 	
