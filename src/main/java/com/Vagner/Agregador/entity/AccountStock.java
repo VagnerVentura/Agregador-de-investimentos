@@ -30,10 +30,11 @@ public class AccountStock {
 	
 	public AccountStock() {}
 	
-	public AccountStock(AccountStockId id, Account account, Stock stock) {
+	public AccountStock(AccountStockId id, Account account, Stock stock, Integer quantity) {
 		this.id = id;
 		this.account = account;
 		this.stock = stock;
+		this.quantity= quantity;
 	}
 
 	public AccountStockId getId() {
@@ -60,7 +61,14 @@ public class AccountStock {
 		this.stock = stock;
 	}
 	
-	
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
 
 
 }
