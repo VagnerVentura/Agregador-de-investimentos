@@ -7,6 +7,8 @@ import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,6 +40,7 @@ public class User {
 	@UpdateTimestamp
     private Instant updateTimestamp;	
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="user")
 	private List<Account> accounts;
 	

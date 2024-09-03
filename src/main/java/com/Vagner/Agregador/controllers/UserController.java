@@ -84,5 +84,23 @@ public class UserController {
 		return ResponseEntity.ok(accounts);
 	}
 	
+	@DeleteMapping("/{userId}/accounts/{accountId}")
+	public ResponseEntity<Void> deleteAccountById(@PathVariable("userId") String userId, @PathVariable("accountId") String accountId){
+		
+		userService.deleteAccountById(accountId);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	
+	@DeleteMapping("/{userId}/accounts")
+	public ResponseEntity<Void> deleteAllAccounts(@PathVariable("userId") String userId){
+		
+		userService.deleteAllAccounts(userId);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	
 	
 }

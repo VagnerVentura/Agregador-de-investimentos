@@ -119,6 +119,32 @@ public class UserService {
 				.map(ac -> new AccountResponseDto(ac.getAccountId().toString(), ac.getDescription()))
 				.toList();								 		
 	}
+
+	public void deleteAccountById(String accountId) {
+		
+		var account = accountRepository.findById(UUID.fromString(accountId))
+				.orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+				
+				accountRepository.delete(account);		
+	}
+
+	public void deleteAllAccounts(String userId) {
+		var user = userRepository.findById(UUID.fromString(userId))
+				.orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+
+		//Buscar todas as contas associadas a um usuário
+		
+		List<Account> userAccounts = accountRepository.findByUser_UserId(user.getUserId());
+		
+		if(userAccounts.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No accounts found for this user");
+		}
+		
+		// Deletar todas as contas encontradas
+	    accountRepository.deleteAll(userAccounts);		
+		
+		
+	}
 	
 
 }
