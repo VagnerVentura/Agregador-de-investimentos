@@ -78,6 +78,14 @@ public class Account {
 		this.user = user;
 	}
 
+	public List<AccountStock> getAccountStocks() {
+		return accountStocks;
+	}
+
+	public void setAccountStocks(List<AccountStock> accountStocks) {
+		this.accountStocks = accountStocks;
+	}
+
 	
 	
 }

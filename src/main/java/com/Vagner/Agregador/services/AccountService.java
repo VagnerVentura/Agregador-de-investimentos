@@ -1,11 +1,13 @@
 package com.Vagner.Agregador.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.Vagner.Agregador.dto.AccountStockResponseDto;
 import com.Vagner.Agregador.dto.AssociateAccountStockDto;
 import com.Vagner.Agregador.entity.AccountStock;
 import com.Vagner.Agregador.entity.AccountStockId;
@@ -49,6 +51,20 @@ public class AccountService {
 				);		
 		
 		accountStockRepository.save(entity);
+		
+	}
+
+	public List<AccountStockResponseDto> listStocks(String accountId) {
+
+		var account = accountRepository.findById(UUID.fromString(accountId))
+				.orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "account not found"));
+		
+		return account.getAccountStocks()
+		.stream()
+		.map(as-> new AccountStockResponseDto(
+					as.getStock().getStockId(),
+					as.getQuantity(),
+					0.0)).toList();
 		
 	}
 
